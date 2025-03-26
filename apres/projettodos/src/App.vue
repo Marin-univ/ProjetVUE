@@ -1,30 +1,51 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
+<script>
+import Questionnaire from './components/Questionnaire.vue';
+
+let data = {
+  questionnaires: [
+    { id: 0, name: "Je suis un questionnaire" },
+    { id: 1, name: "Je suis pas un questionnaire" }
+  ],
+};
+
+export default {
+  components: { Questionnaire },
+
+  data() {
+    return data;
+  },
+
+  methods: {
+
+    addItem: function () {
+      let name = this.newItem.trim();
+      if (name) {
+        this.questionnaires.push({
+          name: name
+        });
+        this.newItem = '';
+      }
+    },
+
+
+    removeItem(questionnaire) {
+      this.questionnaires = this.questionnaires.filter(t => t !== questionnaire)
+    }
+  }
+}
 </script>
-
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
-</template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+  <Questionnaire v-for="questionnaire of questionnaires" :questionnaire="questionnaire" @remove="removeItem">
+  </Questionnaire>
+
+  <div class="input-group">
+    <input v-model="newItem" @keyup.enter="addItem" placeholder="Ajouter un questionnaire à la liste" type="text" class="form-control">
+    <span class="input-group-btn">
+      <button @click="addItem" class="btn btn-default" type="button">
+        Ajouter
+      </button>
+    </span>
+  </div>
+
+</template>
