@@ -1,7 +1,6 @@
 from flask import jsonify, abort, make_response, request, url_for
 from .app import app, db
-from .models import Question
-from .models import Questionnaire
+from .models import Question, Questionnaire
 
 @app.route('/quizz/api/v1/questionnaires', methods=['GET'])
 def get_questionnaires():
@@ -49,7 +48,11 @@ def delete_questionnaire(idQaire):
 @app.route('/quizz/api/v1/questionnaires/<int:idQaire>/questions', methods=['POST'])
 def create_question(idQaire):
     data = request.get_json()
-    new_question = Question(text=data['text'], questionnaire_id=idQaire)
+    new_question = Question(
+        title=data['title'],                # ✅ On utilise 'title' ici
+        questionType='',                    # Facultatif ou à supprimer si non utilisé
+        questionnaire_id=idQaire
+    )
     db.session.add(new_question)
     db.session.commit()
     return jsonify(new_question.to_json()), 201
@@ -58,7 +61,7 @@ def create_question(idQaire):
 def update_question(idQaire, idQion):
     question = Question.query.filter_by(id=idQion, questionnaire_id=idQaire).first_or_404()
     data = request.get_json()
-    question.text = data.get('text', question.text)
+    question.title = data.get('title', question.title)   # ✅ Correction ici
     db.session.commit()
     return jsonify(question.to_json())
 
@@ -71,8 +74,8 @@ def delete_question(idQaire, idQion):
 
 @app.errorhandler(404)
 def not_found(error):
-    return make_response(jsonify({'error':'Not found'}), 404)
+    return make_response(jsonify({'error': 'Not found'}), 404)
 
 @app.errorhandler(400)
-def not_found(error):
-    return make_response(jsonify({'error':'Bad command'}), 400)
+def bad_request(error):
+    return make_response(jsonify({'error': 'Bad command'}), 400)
