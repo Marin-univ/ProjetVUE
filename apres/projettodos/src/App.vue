@@ -158,8 +158,7 @@ export default {
       @remove="removeItem" @edit="editItem" />
 
     <div class="input-group my-4">
-      <input v-model="newItem" @keyup.enter="addItem" placeholder="Ajouter un questionnaire" type="text"
-        class="form-control">
+      <input v-model="newItem" @keyup.enter="addItem" placeholder="Ajouter un questionnaire" type="text" class="form-control">
       <button @click="addItem" class="btn btn-success">Ajouter</button>
     </div>
 
@@ -167,8 +166,7 @@ export default {
       <h2 class="mt-5">Questions pour : {{ selectedQuestionnaire.name }}</h2>
       <button class="btn btn-primary my-3" @click="addQuestion">Ajouter une question</button>
 
-      <Question v-for="question in questions" :key="question.id" :question="question" @removeQ="removeQuestion"
-        @editQ="editQuestion" />
+      <Question v-for="question in questions" :key="question.id" :question="question" @removeQ="removeQuestion" @editQ="editQuestion" />
     </div>
   </div>
 </template>

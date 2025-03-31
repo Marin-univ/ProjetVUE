@@ -61,7 +61,7 @@ def create_question(idQaire):
 def update_question(idQaire, idQion):
     question = Question.query.filter_by(id=idQion, questionnaire_id=idQaire).first_or_404()
     data = request.get_json()
-    question.title = data.get('title', question.title)   # ✅ Correction ici
+    question.title = data.get('title', question.title) 
     db.session.commit()
     return jsonify(question.to_json())
 
