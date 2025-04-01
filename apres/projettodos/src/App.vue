@@ -1,10 +1,11 @@
 <script>
+import AjoutQuestionnaire from './components/AjoutQuestionnaire.vue';
 import Question from './components/Question.vue';
 import Questionnaire from './components/Questionnaire.vue';
 
 export default {
   name: "QuestionnaireApp",
-  components: { Questionnaire, Question },
+  components: { Questionnaire, Question ,AjoutQuestionnaire},
 
   data() {
     return {
@@ -81,9 +82,6 @@ export default {
             if (index !== -1) {
               this.questionnaires[index] = updated;
             }
-            if (this.selectedQuestionnaire?.id === updated.id) {
-              this.selectedQuestionnaire = updated;
-            }
           });
       }
     },
@@ -99,13 +97,11 @@ export default {
           body: JSON.stringify({ title })
         })
           .then(response => {
-            if (response.status === 204) return {};
             return response.json();
           })
           .then(newQ => {
             if (newQ?.id) this.questions.push(newQ);
           })
-          .catch(console.error);
       }
     },
 
@@ -114,13 +110,9 @@ export default {
       fetch(`http://127.0.0.1:5000/quizz/api/v1/questionnaires/${question.questionnaire_id}/questions/${question.id}`, {
         method: "DELETE"
       })
-        .then(response => {
-          if (!response.ok) throw new Error("Échec de la suppression");
-        })
         .then(() => {
           this.questions = this.questions.filter(q => q.id !== question.id);
         })
-        .catch(console.error);
     },
 
 
@@ -135,14 +127,12 @@ export default {
           body: JSON.stringify({ title: newTitle.trim() })
         })
           .then(response => {
-            if (response.status === 204) return {};
             return response.json();
           })
           .then(updated => {
             const index = this.questions.findIndex(q => q.id === question.id);
             if (index !== -1) this.questions[index] = updated;
           })
-          .catch(console.error);
       }
     }
 
@@ -154,19 +144,16 @@ export default {
   <div class="container my-4">
     <h1 class="mb-4">Liste des Questionnaires</h1>
 
-    <Questionnaire v-for="q in questionnaires" :key="q.id" :questionnaire="q" @clicked="loadQuestions(q)"
-      @remove="removeItem" @edit="editItem" />
+    <Questionnaire v-for="q in questionnaires" :key="q.id" :questionnaire="q" @clicked="loadQuestions(q)" @remove="removeItem" @edit="editItem"></Questionnaire>
 
-    <div class="input-group my-4">
-      <input v-model="newItem" @keyup.enter="addItem" placeholder="Ajouter un questionnaire" type="text" class="form-control">
-      <button @click="addItem" class="btn btn-success">Ajouter</button>
-    </div>
+    
 
     <div v-if="selectedQuestionnaire">
       <h2 class="mt-5">Questions pour : {{ selectedQuestionnaire.name }}</h2>
-      <button class="btn btn-primary my-3" @click="addQuestion">Ajouter une question</button>
-
-      <Question v-for="question in questions" :key="question.id" :question="question" @removeQ="removeQuestion" @editQ="editQuestion" />
+      <Question v-for="question in questions" :key="question.id" :question="question" @removeQ="removeQuestion" @editQ="editQuestion" @addQ="addQuestion"></Question>
     </div>
   </div>
+
+  <AjoutQuestionnaire :newItem="newItem" @update:newItem="newItem = $event" @submit="addItem"></AjoutQuestionnaire>
+  
 </template>
