@@ -142,19 +142,22 @@ export default {
 
 <template>
   <div>
-    <h1 >Liste des Questionnaires</h1>
+   
 
-    <Questionnaire v-for="q in questionnaires" :key="q.id" :questionnaire="q" @clicked="loadQuestions(q)" @remove="removeItem" @edit="editItem"></Questionnaire>
+    <div class="layout-container">
+      <div class="questionnaire-list">
+        <h1>Liste des Questionnaires</h1>
+        <Questionnaire v-for="q in questionnaires" :key="q.id" :questionnaire="q" @clicked="loadQuestions(q)" @remove="removeItem" @edit="editItem" />
+        <AjoutQuestionnaire :newItem="newItem" @update:newItem="newItem = $event" @submit="addItem" />
+      </div>
 
-
-
-    <div v-if="selectedQuestionnaire">
-      <h2>Questions pour : {{ selectedQuestionnaire.name }}</h2>
-      <button @click="addQuestion">Ajouter une question</button>
-      <Question v-for="question in questions" :key="question.id" :question="question" @removeQ="removeQuestion" @editQ="editQuestion" @addQ="addQuestion"></Question>
+      <div class="question-list" v-if="selectedQuestionnaire">
+        <h1>Questions pour : {{ selectedQuestionnaire.name }}</h1>
+        <button @click="addQuestion">Ajouter une question</button>
+        <Question v-for="question in questions" :key="question.id" :question="question" @removeQ="removeQuestion" @editQ="editQuestion" />
+      </div>
     </div>
+
+    
   </div>
-
-  <AjoutQuestionnaire :newItem="newItem" @update:newItem="newItem = $event" @submit="addItem"></AjoutQuestionnaire>
-
 </template>

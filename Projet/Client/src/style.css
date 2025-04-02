@@ -92,3 +92,15 @@ h2 + button {
 }
 
 
+.layout-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  justify-content: center;
+}
+
+.questionnaire-list,
+.question-list {
+  flex: 1;
+  max-width: 600px;
+}
