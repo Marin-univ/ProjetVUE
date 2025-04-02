@@ -5,7 +5,7 @@ import Questionnaire from './components/Questionnaire.vue';
 
 export default {
   name: "QuestionnaireApp",
-  components: { Questionnaire, Question ,AjoutQuestionnaire},
+  components: { Questionnaire, Question, AjoutQuestionnaire },
 
   data() {
     return {
@@ -146,14 +146,15 @@ export default {
 
     <Questionnaire v-for="q in questionnaires" :key="q.id" :questionnaire="q" @clicked="loadQuestions(q)" @remove="removeItem" @edit="editItem"></Questionnaire>
 
-    
+
 
     <div v-if="selectedQuestionnaire">
       <h2 class="mt-5">Questions pour : {{ selectedQuestionnaire.name }}</h2>
+      <button class="btn btn-primary my-3" @click="addQuestion">Ajouter une question</button>
       <Question v-for="question in questions" :key="question.id" :question="question" @removeQ="removeQuestion" @editQ="editQuestion" @addQ="addQuestion"></Question>
     </div>
   </div>
 
   <AjoutQuestionnaire :newItem="newItem" @update:newItem="newItem = $event" @submit="addItem"></AjoutQuestionnaire>
-  
+
 </template>
