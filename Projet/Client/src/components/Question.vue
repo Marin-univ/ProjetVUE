@@ -5,9 +5,9 @@ export default {
 </script>
 
 <template>
-  <div class="card my-2 p-3">
+  <div >
     <h2>{{ question.title }}</h2>
-    <button class="btn btn-danger me-2" @click="$emit('removeQ', question)">Supprimer</button>
-    <button class="btn btn-secondary" @click="$emit('editQ', question)">Modifier</button>
+    <button  @click="$emit('removeQ', question)">Supprimer</button>
+    <button  @click="$emit('editQ', question)">Modifier</button>
   </div>
 </template>

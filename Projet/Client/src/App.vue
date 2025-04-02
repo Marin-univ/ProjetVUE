@@ -141,16 +141,16 @@ export default {
 </script>
 
 <template>
-  <div class="container my-4">
-    <h1 class="mb-4">Liste des Questionnaires</h1>
+  <div>
+    <h1 >Liste des Questionnaires</h1>
 
     <Questionnaire v-for="q in questionnaires" :key="q.id" :questionnaire="q" @clicked="loadQuestions(q)" @remove="removeItem" @edit="editItem"></Questionnaire>
 
 
 
     <div v-if="selectedQuestionnaire">
-      <h2 class="mt-5">Questions pour : {{ selectedQuestionnaire.name }}</h2>
-      <button class="btn btn-primary my-3" @click="addQuestion">Ajouter une question</button>
+      <h2>Questions pour : {{ selectedQuestionnaire.name }}</h2>
+      <button @click="addQuestion">Ajouter une question</button>
       <Question v-for="question in questions" :key="question.id" :question="question" @removeQ="removeQuestion" @editQ="editQuestion" @addQ="addQuestion"></Question>
     </div>
   </div>
