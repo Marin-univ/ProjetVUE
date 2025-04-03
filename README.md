@@ -48,7 +48,7 @@ Le dossier **Serveur/** contient le back-end du projet, qui est un serveur API d
 
 1. Accédez au dossier `Serveur` :
    ```sh
-   cd Serveur/
+   cd Serveur
    ```
 2. Installez les dépendances :
    ```sh
