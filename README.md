@@ -2,7 +2,7 @@
 
 Projet développé par **Noa Fonteny** et **Marin Chesneau**.
 
-Ce projet est une application développée en **Vue.js** pour la partie client et en **Node.js avec Express** pour la partie serveur. Une base de données SQLite est utilisée pour stocker les informations.
+Ce projet est une application développée en **Vue.js** pour la partie client et en **Python avec Flask** pour la partie serveur. Une base de données SQLite est utilisée pour stocker les informations.
 
 ---
 
@@ -13,7 +13,7 @@ Le projet est organisé comme suit :
 ```
 Projet/
 │—— Client/        # Code source du client Vue.js
-│—— Serveur/       # Code source du serveur Node.js
+│—— Serveur/       # Code source du serveur Python (Flask)
 │—— questionnaire.db  # Base de données SQLite
 │—— README.md      # Documentation du projet
 ```
@@ -40,9 +40,9 @@ Elle est utilisée pour afficher l'interface utilisateur et interagir avec le se
 
 ---
 
-### 🌐 Serveur (Node.js + Express)
+### 🌐 Serveur (Python + Flask)
 
-Le dossier **Serveur/** contient le back-end du projet, qui est un serveur API développé avec **Node.js** et **Express**.
+Le dossier **Serveur/** contient le back-end du projet, qui est un serveur API développé avec **Python** et **Flask**.
 
 #### 📌 Installation et Lancement du Serveur
 
@@ -61,22 +61,18 @@ Le dossier **Serveur/** contient le back-end du projet, qui est un serveur API d
 
 ---
 
-
 ## 🛠️ Technologies utilisées
 
 ### Front-end :
 - Vue.js
 - Vite
-- Axios (pour les requêtes HTTP)
-- Tailwind CSS (pour le style)
 
 ### Back-end :
-- Node.js
-- Express.js
+- Python
+- Flask
 - SQLite3
 
 ---
-
 
 ## 📢 Auteurs
 
